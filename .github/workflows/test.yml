@@ -1,0 +1,43 @@
+name: Testing Landing Page
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+
+jobs:
+  lint-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias de lint
+        run: |
+          npm init -y
+          npm install --save-dev htmlhint stylelint stylelint-config-standard eslint
+
+      - name: Crear archivo de configuración (opcional, si aún no lo tienes)
+        run: |
+          echo '{}' > .eslintrc.json
+          echo '{}' > .stylelintrc.json
+          echo '{}' > .htmlhintrc
+
+      - name: Lint HTML
+        run: npx htmlhint '**/*.html'
+
+      - name: Lint CSS
+        run: npx stylelint "**/*.css"
+
+      - name: Lint JS
+        run: npx eslint "**/*.js"
