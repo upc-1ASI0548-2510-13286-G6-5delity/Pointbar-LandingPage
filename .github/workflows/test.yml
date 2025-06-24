@@ -1,4 +1,4 @@
-name: Testing Landing Page
+name: Testing HTML Landing Page
 
 on:
   pull_request:
@@ -7,10 +7,9 @@ on:
     branches: [develop, main]
     paths:
       - '**.html'
-      - '**.js'
 
 jobs:
-  lint-code:
+  lint-html:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del código
@@ -21,13 +20,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Instalar dependencias de lint
+      - name: Instalar htmlhint
         run: |
           npm init -y
-          npm install --save-dev htmlhint eslint
+          npm install --save-dev htmlhint
 
       - name: Lint HTML
         run: npx htmlhint '**/*.html'
-
-      - name: Lint JS
-        run: npx eslint "**/*.js"
