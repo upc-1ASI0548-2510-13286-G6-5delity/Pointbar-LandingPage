@@ -8,7 +8,10 @@ on:
       - 'index.html'
       - '**.css'
       - '**.js'
-      - 'assets/**'
+      - 'assets/**' 
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
